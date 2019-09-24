@@ -1,0 +1,18 @@
+.giphy{
+float: inline-start;
+margin-left: 20px;
+}
+
+button{background: green;
+
+}
+
+body{
+max-height: 400px;
+
+}
+
+.container{ max-height: 960px;
+    
+
+}
