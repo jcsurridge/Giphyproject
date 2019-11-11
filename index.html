@@ -8,70 +8,28 @@
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js.js" type="text/javascript"></script>
 
 </head>
 
 <body>
     <div>
-        <div class="container">
+        <div id="buttonRow">
 
-            <!-- This is tex area where the GIPHYs will appear-->
-            <button type-of-animal="dog">Dog</button>
-            <button type-of-animal="cat">Cat</button>
-            <button type-of-animal="bird">bird</button>
+            <!-- This is text area where the GIPHYs will appear-->
 
         </div>
-            <!--text input box-->
+        <!--text input box-->
 
-            <form id="movie-form">
-                    <label for="movie-input">Find giphy of your favorite animal!</label>
-                    <input type="text" id="movie-input"><button>Submit</button>
+        <form id="animal-textbox">
+            <label form="animal-input">Find giphy of your favorite animal!</label>
+            <input type="text" id="animal-input"><button id="animal-button">Submit</button>
 
-            <!--div to attach giphy-->        
+            <!--div to attach giphy-->
             <div id="gifsappearhere"></div>
 
-            <script type="text/javascript">
 
-        $("button").on("click", function() {
-        var animal = $(this).attr("type-of-animal");
-
-            //make a variable to generate giphy URL
-        var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=JnK4SZF4TnntA9vUApasMRISp4pvLwmu&q=${animal}&limit=10&offset=0&rating=G&lang=en`
-
-            //perform ajax function
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-            })
-
-             .then(function (response) {
-            console.log(queryURL);
-            console.log(response);
-
-            var results = response.data;
-
-            for (var i = 0; i < 10; i++) {
-
-            var animalDiv = $("<div class ='animalgiphy'>");
-
-            var ratingDiv = $("<p>").text("Rating: " + results[i].rating);
-
-            var animalGiphy = $("<img class='giphy'>");
-
-            animalGiphy.attr("src", results[i].images.fixed_height_still.url);
-
-            animalDiv.append(ratingDiv);
-            animalDiv.append(animalGiphy);
-
-            $("#gifsappearhere").prepend(animalDiv);
-
-            }
-        });
-        });
-
-
-            </Script>
-        </div>
+    </div>
     </div>
 </body>
 
