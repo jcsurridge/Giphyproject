@@ -10,7 +10,6 @@ $(document).ready(function () {
             buttons.text(animalArr[i]);
             $("#buttonRow").append(buttons);
             buttons.attr("type-of-animal", animalArr[i]);
-            giphySearch();
 
         }
     };
@@ -85,6 +84,7 @@ $(document).ready(function () {
 
     };
 
+    giphySearch();
 
     $(document).on("click", ".animalGiphy", function () {
 
