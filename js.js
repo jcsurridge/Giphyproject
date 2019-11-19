@@ -10,9 +10,9 @@ $(document).ready(function () {
             buttons.text(animalArr[i]);
             $("#buttonRow").append(buttons);
             buttons.attr("type-of-animal", animalArr[i]);
+            giphySearch();
 
         }
-
     };
 
     function newButton() {
@@ -26,61 +26,64 @@ $(document).ready(function () {
             animalArr.push(newGiphy);
             $("#buttonRow").append(buttons);
             buttons.attr("type-of-animal", newGiphy);
+            $("#gifsappearhere").empty();
 
+            giphySearch();
 
             console.log(animalArr);
             console.log(newGiphy);
 
         });
+  
     };
 
-
-    initialButton();
     newButton();
+    initialButton();
 
-    $("button").on("click", function () {
+    function giphySearch() {
 
+        $("button").on("click", function () {
 
-        $("#gifsappearhere").empty();
+            $("#gifsappearhere").empty();
 
-        let animal = $(this).attr("type-of-animal");
+            let animal = $(this).attr("type-of-animal");
 
-        //make a variable to generate giphy URL
-        let queryURL = `https://api.giphy.com/v1/gifs/search?api_key=JnK4SZF4TnntA9vUApasMRISp4pvLwmu&q=${animal}&limit=10&offset=0&rating=G&lang=en`
+            //make a variable to generate giphy URL
+            let queryURL = `https://api.giphy.com/v1/gifs/search?api_key=JnK4SZF4TnntA9vUApasMRISp4pvLwmu&q=${animal}&limit=10&offset=0&rating=G&lang=en`
 
-        //perform ajax function
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
+            //perform ajax function
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
 
-            .then(function (response) {
-                // console.log(queryURL);
-                // console.log(response);
+                .then(function (response) {
+                    // console.log(queryURL);
+                    // console.log(response);
 
-                let results = response.data;
+                    let results = response.data;
 
-                for (let i = 0; i < animalArr.length; i++) {
+                    for (let i = 0; i < 9; i++) {
 
-                    let animalDiv = $("<div>");
-                    let ratingDiv = $("<p>").text("Rating: " + results[i].rating);
-                    let animalGiphy = $("<img>");
+                        let animalDiv = $("<div>");
+                        let ratingDiv = $("<p>").text("Rating: " + results[i].rating);
+                        let animalGiphy = $("<img>");
 
-                    animalGiphy.attr("src", results[i].images.fixed_height_still.url);
-                    animalGiphy.attr("data-still", results[i].images.fixed_height_still.url);
-                    animalGiphy.attr("data-animate", results[i].images.fixed_height.url);
-                    animalGiphy.attr("data-state", "still");
-                    animalGiphy.addClass("animalGiphy");
-                    animalDiv.append(ratingDiv);
-                    animalDiv.append(animalGiphy);
+                        animalGiphy.attr("src", results[i].images.fixed_height_still.url);
+                        animalGiphy.attr("data-still", results[i].images.fixed_height_still.url);
+                        animalGiphy.attr("data-animate", results[i].images.fixed_height.url);
+                        animalGiphy.attr("data-state", "still");
+                        animalGiphy.addClass("animalGiphy");
+                        animalDiv.append(ratingDiv);
+                        animalDiv.append(animalGiphy);
 
-                    $("#gifsappearhere").prepend(animalDiv);
+                        $("#gifsappearhere").prepend(animalDiv);
 
-                    newButton();
+                    }
+                });
+        });
 
-                }
-            });
-    });
+    };
 
 
     $(document).on("click", ".animalGiphy", function () {
